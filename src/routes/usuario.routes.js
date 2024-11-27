@@ -6,6 +6,8 @@ import {
     updateUsuarioController,
     deleteUsuarioController,
 } from "../controllers/usuario.controller.js";
+import { authenticateJWT } from "../middlewares/authenticateJWT.js";
+import { checkRole } from "../middlewares/roleCheck.js";
 
 const router = Router();
 
@@ -29,7 +31,7 @@ const router = Router();
  *       500:
  *         description: Error al obtener los usuarios.
  */
-router.get("/get-usuarios", getAllUsuariosController);
+router.get("/get-usuarios",authenticateJWT,checkRole(["Admin","User"]), getAllUsuariosController);
 
 /**
  * @swagger
@@ -53,7 +55,7 @@ router.get("/get-usuarios", getAllUsuariosController);
  *       500:
  *         description: Error al obtener el usuario.
  */
-router.get("/get-usuario/:id", getUsuarioController);
+router.get("/get-usuario/:id",authenticateJWT,checkRole(["User"]), getUsuarioController);
 
 /**
  * @swagger

@@ -18,6 +18,7 @@ import direccionRoutes from "./routes/direccion.routes.js";
 import bajaBienRoutes from "./routes/bajaBien.routes.js";
 import documentosRoutes from "./routes/documentos.routes.js";
 import historialResguardo from './routes/historialResguardo.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 
 const app = express();
@@ -44,5 +45,6 @@ app.use('/api/direccion', direccionRoutes);
 app.use('/api/baja-bien', bajaBienRoutes);
 app.use('/api/documento', documentosRoutes);
 app.use('/api/historial-Resguardo', historialResguardo);
+app.use('/auth',authRoutes)
 
 export default app;

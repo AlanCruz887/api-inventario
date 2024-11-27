@@ -7,7 +7,7 @@ const options = {
         info: {
             title: "Inventario bienes",
             version: "1.0.0",
-            description: "A simple API for tracking buses",
+            description: "Control de inventario de bienes del centro de justicia",
         },
         servers: [
             {
