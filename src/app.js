@@ -19,6 +19,7 @@ import bajaBienRoutes from "./routes/bajaBien.routes.js";
 import documentosRoutes from "./routes/documentos.routes.js";
 import historialResguardo from './routes/historialResguardo.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import cors from 'cors';
 
 
 const app = express();
@@ -26,6 +27,8 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+//usar cors
+app.use(cors());
 
 app.use('/api/subcuenta-armonizada', subcuentaArmonizadaRoutes);
 app.use('/api/tipo-posesion', tipoPosesionRoutes);
@@ -43,7 +46,7 @@ app.use('/api/usuario', usuarioRoutes);
 app.use('/api/rol', rolRoutes);
 app.use('/api/direccion', direccionRoutes);
 app.use('/api/baja-bien', bajaBienRoutes);
-app.use('/api/documento', documentosRoutes);
+app.use('/api/documentos', documentosRoutes);
 app.use('/api/historial-Resguardo', historialResguardo);
 app.use('/auth',authRoutes)
 

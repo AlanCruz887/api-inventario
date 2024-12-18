@@ -60,6 +60,7 @@ export const createMarcaController = async (req, res) => {
             data: newMarca,
         });
     } catch (error) {
+        console.log(error)
         res.status(CODES_HTTP.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Error al crear la marca.",

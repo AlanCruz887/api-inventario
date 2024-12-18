@@ -6,7 +6,7 @@ USE InventarioBienes;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Tabla SubcuentaArmonizada
-CREATE TABLE IF NOT EXISTS SubcuentaArmonizada (
+CREATE TABLE IF NOT EXISTS subcuentaarmonizada (
     id_subcuenta INT AUTO_INCREMENT PRIMARY KEY,
     nombre_subcuenta VARCHAR(255) NOT NULL,
     status_subcuenta ENUM('Activo', 'Inactivo'),
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS SubcuentaArmonizada (
 );
 
 -- Tabla TipoPosesion
-CREATE TABLE IF NOT EXISTS TipoPosesion (
+CREATE TABLE IF NOT EXISTS tipoposesion (
     id_tipo_posesion INT AUTO_INCREMENT PRIMARY KEY,
     descripcion_posesion VARCHAR(255) NOT NULL,
     clave_posesion VARCHAR(50),
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS TipoPosesion (
 );
 
 -- Tabla CodigoPartidaEspecifica
-CREATE TABLE IF NOT EXISTS CodigoPartidaEspecifica (
+CREATE TABLE IF NOT EXISTS codigopartidaespecifica (
     id_partida INT AUTO_INCREMENT PRIMARY KEY,
     codigo_partida VARCHAR(50) NOT NULL,
     nombre_partida VARCHAR(255) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS CodigoPartidaEspecifica (
 );
 
 -- Tabla Producto
-CREATE TABLE IF NOT EXISTS Producto (
+CREATE TABLE IF NOT EXISTS producto (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
     nombre_producto VARCHAR(255) NOT NULL,
     modelo VARCHAR(100),
@@ -44,20 +44,20 @@ CREATE TABLE IF NOT EXISTS Producto (
 );
 
 -- Tabla Marca
-CREATE TABLE IF NOT EXISTS Marca (
+CREATE TABLE IF NOT EXISTS marca (
     id_marca INT AUTO_INCREMENT PRIMARY KEY,
     nombre_marca VARCHAR(255) NOT NULL,
     status_marca ENUM('Activo', 'Inactivo')
 );
 
 -- Tabla RecursoOrigen
-CREATE TABLE IF NOT EXISTS RecursoOrigen (
+CREATE TABLE IF NOT EXISTS recursoorigen (
     id_recurso_origen INT AUTO_INCREMENT PRIMARY KEY,
     descripcion_recurso ENUM('Estatal', 'FASP')
 );
 
 -- Tabla Bien
-CREATE TABLE IF NOT EXISTS Bien (
+CREATE TABLE IF NOT EXISTS bien (
     id_bien INT AUTO_INCREMENT PRIMARY KEY,
     costo DECIMAL(10, 2) NOT NULL,
     fecha_adquisicion DATE,
@@ -85,19 +85,19 @@ CREATE TABLE IF NOT EXISTS Bien (
 );
 
 -- Tabla StatusBien
-CREATE TABLE IF NOT EXISTS StatusBien (
+CREATE TABLE IF NOT EXISTS statusbien (
     id_status_bien INT AUTO_INCREMENT PRIMARY KEY,
     descripcion_status ENUM('Asignado', 'Extraviado', 'Dado de baja', 'Reasignado')
 );
 
 -- Tabla TipoAlta
-CREATE TABLE IF NOT EXISTS TipoAlta (
+CREATE TABLE IF NOT EXISTS tipoalta (
     id_tipo_alta INT AUTO_INCREMENT PRIMARY KEY,
     descripcion_alta ENUM('Compra', 'Asignacion', 'Donacion', 'Comodato')
 );
 
 -- Tabla Resguardo
-CREATE TABLE IF NOT EXISTS Resguardo (
+CREATE TABLE IF NOT EXISTS resguardo (
     id_resguardo INT AUTO_INCREMENT PRIMARY KEY,
     fecha_resguardo DATE NOT NULL,
     ubicacion TEXT,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS Resguardo (
 );
 
 -- Tabla Empleado
-CREATE TABLE IF NOT EXISTS Empleado (
+CREATE TABLE IF NOT EXISTS empleado (
     id_empleado INT AUTO_INCREMENT PRIMARY KEY,
     nombre_empleado VARCHAR(255) NOT NULL,
     correo_electronico VARCHAR(255),
@@ -124,13 +124,13 @@ CREATE TABLE IF NOT EXISTS Empleado (
 );
 
 -- Tabla Area
-CREATE TABLE IF NOT EXISTS Area (
+CREATE TABLE IF NOT EXISTS area (
     id_area INT AUTO_INCREMENT PRIMARY KEY,
     nombre_area VARCHAR(255) NOT NULL
 );
 
 -- Tabla Usuario
-CREATE TABLE IF NOT EXISTS Usuario (
+CREATE TABLE IF NOT EXISTS usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(50) NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
@@ -141,20 +141,20 @@ CREATE TABLE IF NOT EXISTS Usuario (
 );
 
 -- Tabla Rol
-CREATE TABLE IF NOT EXISTS Rol (
+CREATE TABLE IF NOT EXISTS rol (
     id_rol INT AUTO_INCREMENT PRIMARY KEY,
     nombre_rol VARCHAR(50) NOT NULL,
     descripcion_rol TEXT
 );
 
 -- Tabla Direccion
-CREATE TABLE IF NOT EXISTS Direccion (
+CREATE TABLE IF NOT EXISTS direccion (
     id_direccion INT AUTO_INCREMENT PRIMARY KEY,
     nombre_direccion VARCHAR(255) NOT NULL
 );
 
 -- Tabla BajaBien
-CREATE TABLE IF NOT EXISTS BajaBien (
+CREATE TABLE IF NOT EXISTS bajabien (
     id_baja_bien INT AUTO_INCREMENT PRIMARY KEY,
     fecha_baja DATE NOT NULL,
     documento_ampare TEXT,
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS BajaBien (
 );
 
 -- Tabla Documentos
-CREATE TABLE IF NOT EXISTS Documentos (
+CREATE TABLE IF NOT EXISTS documentos (
     id_documento INT AUTO_INCREMENT PRIMARY KEY,
     factura_documento TEXT,
     fecha_documento DATE,
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS Documentos (
 );
 
 -- Tabla HistorialResguardo
-CREATE TABLE IF NOT EXISTS HistorialResguardo (
+CREATE TABLE IF NOT EXISTS historialresguardo (
     id_historial_resguardo INT AUTO_INCREMENT PRIMARY KEY,
     fecha_resguardo DATE NOT NULL,
     id_bien INT,

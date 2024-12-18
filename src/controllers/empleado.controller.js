@@ -52,6 +52,7 @@ export const getEmpleadoController = async (req, res) => {
 
 // Crear un nuevo empleado
 export const createEmpleadoController = async (req, res) => {
+    console.log(req.body);
     try {
         const newEmpleado = await createEmpleado(req.body);
         res.status(CODES_HTTP.CREATED).json({
@@ -64,6 +65,7 @@ export const createEmpleadoController = async (req, res) => {
             success: false,
             message: "Error al crear el empleado.",
         });
+        console.log(error)
     }
 };
 

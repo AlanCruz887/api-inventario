@@ -7,13 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Area {
-  id_area     Int        @id @default(autoincrement())
-  nombre_area String     @db.VarChar(255)
-  Empleado    Empleado[]
+model area {
+  id_area     Int    @id @default(autoincrement())
+  nombre_area String @db.VarChar(255)
 }
 
-model BajaBien {
+model bajabien {
   id_baja_bien     Int       @id @default(autoincrement())
   fecha_baja       DateTime  @db.Date
   documento_ampare String?   @db.Text
@@ -21,24 +20,22 @@ model BajaBien {
   fecha_poliza     DateTime? @db.Date
   id_bien          Int?
   id_usuario       Int?
-  Bien             Bien?     @relation(fields: [id_bien], references: [id_bien], onDelete: NoAction, onUpdate: NoAction, map: "bajabien_ibfk_1")
-  Usuario          Usuario?  @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "bajabien_ibfk_2")
 
   @@index([id_bien], map: "id_bien")
   @@index([id_usuario], map: "id_usuario")
 }
 
-model Bien {
-  id_bien                   Int                      @id @default(autoincrement())
-  costo                     Decimal                  @db.Decimal(10, 2)
-  fecha_adquisicion         DateTime?                @db.Date
-  serie                     String?                  @db.VarChar(255)
-  estado_bien               Bien_estado_bien?
-  no_inventario             String?                  @db.VarChar(50)
-  codificacion_objeto_gasto String?                  @db.VarChar(50)
-  propuesto_baja            Bien_propuesto_baja?
-  reparacion_baja           Bien_reparacion_baja?
-  motivo_no_asignado        String?                  @db.Text
+model bien {
+  id_bien                   Int                   @id @default(autoincrement())
+  costo                     Decimal               @db.Decimal(10, 2)
+  fecha_adquisicion         DateTime?             @db.Date
+  serie                     String?               @db.VarChar(255)
+  estado_bien               bien_estado_bien?
+  no_inventario             String?               @db.VarChar(50)
+  codificacion_objeto_gasto String?               @db.VarChar(50)
+  propuesto_baja            bien_propuesto_baja?
+  reparacion_baja           bien_reparacion_baja?
+  motivo_no_asignado        String?               @db.Text
   id_producto               Int?
   id_tipo_posesion          Int?
   id_subcuenta              Int?
@@ -46,17 +43,6 @@ model Bien {
   id_status_bien            Int?
   id_tipo_alta              Int?
   id_recurso_origen         Int?
-  BajaBien                  BajaBien[]
-  Producto                  Producto?                @relation(fields: [id_producto], references: [id_producto], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_1")
-  TipoPosesion              TipoPosesion?            @relation(fields: [id_tipo_posesion], references: [id_tipo_posesion], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_2")
-  SubcuentaArmonizada       SubcuentaArmonizada?     @relation(fields: [id_subcuenta], references: [id_subcuenta], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_3")
-  CodigoPartidaEspecifica   CodigoPartidaEspecifica? @relation(fields: [id_partida], references: [id_partida], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_4")
-  StatusBien                StatusBien?              @relation(fields: [id_status_bien], references: [id_status_bien], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_5")
-  TipoAlta                  TipoAlta?                @relation(fields: [id_tipo_alta], references: [id_tipo_alta], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_6")
-  RecursoOrigen             RecursoOrigen?           @relation(fields: [id_recurso_origen], references: [id_recurso_origen], onDelete: NoAction, onUpdate: NoAction, map: "bien_ibfk_7")
-  Documentos                Documentos[]
-  HistorialResguardo        HistorialResguardo[]
-  Resguardo                 Resguardo[]
 
   @@index([id_partida], map: "id_partida")
   @@index([id_producto], map: "id_producto")
@@ -67,26 +53,23 @@ model Bien {
   @@index([id_tipo_posesion], map: "id_tipo_posesion")
 }
 
-model CodigoPartidaEspecifica {
-  id_partida          Int                                     @id @default(autoincrement())
-  codigo_partida      String                                  @db.VarChar(50)
-  nombre_partida      String                                  @db.VarChar(255)
-  borrador_partida    Boolean?
-  status_partida      CodigoPartidaEspecifica_status_partida?
-  id_subcuenta        Int?
-  Bien                Bien[]
-  SubcuentaArmonizada SubcuentaArmonizada?                    @relation(fields: [id_subcuenta], references: [id_subcuenta], onDelete: NoAction, onUpdate: NoAction, map: "codigopartidaespecifica_ibfk_1")
+model codigopartidaespecifica {
+  id_partida       Int                                     @id @default(autoincrement())
+  codigo_partida   String                                  @db.VarChar(50)
+  nombre_partida   String                                  @db.VarChar(255)
+  borrador_partida Boolean?
+  status_partida   codigopartidaespecifica_status_partida?
+  id_subcuenta     Int?
 
   @@index([id_subcuenta], map: "id_subcuenta")
 }
 
-model Direccion {
-  id_direccion     Int         @id @default(autoincrement())
-  nombre_direccion String      @db.VarChar(255)
-  Resguardo        Resguardo[]
+model direccion {
+  id_direccion     Int    @id @default(autoincrement())
+  nombre_direccion String @db.VarChar(255)
 }
 
-model Documentos {
+model documentos {
   id_documento               Int       @id @default(autoincrement())
   factura_documento          String?   @db.Text
   fecha_documento            DateTime? @db.Date
@@ -94,80 +77,64 @@ model Documentos {
   documento_ampare_propiedad String?   @db.Text
   comentarios                String?   @db.Text
   id_bien                    Int?
-  Bien                       Bien?     @relation(fields: [id_bien], references: [id_bien], onDelete: NoAction, onUpdate: NoAction, map: "documentos_ibfk_1")
 
   @@index([id_bien], map: "id_bien")
 }
 
-model Empleado {
+model empleado {
   id_empleado        Int                       @id @default(autoincrement())
   nombre_empleado    String                    @db.VarChar(255)
   correo_electronico String?                   @db.VarChar(255)
   rfc                String?                   @db.VarChar(50)
   numero_contacto    String?                   @db.VarChar(50)
-  status_empleado    Empleado_status_empleado?
+  status_empleado    empleado_status_empleado?
   id_area            Int?
-  Area               Area?                     @relation(fields: [id_area], references: [id_area], onDelete: NoAction, onUpdate: NoAction, map: "empleado_ibfk_1")
-  HistorialResguardo HistorialResguardo[]
-  Resguardo          Resguardo[]
-  Usuario            Usuario[]
 
   @@index([id_area], map: "id_area")
 }
 
-model HistorialResguardo {
-  id_historial_resguardo Int       @id @default(autoincrement())
-  fecha_resguardo        DateTime  @db.Date
+model historialresguardo {
+  id_historial_resguardo Int      @id @default(autoincrement())
+  fecha_resguardo        DateTime @db.Date
   id_bien                Int?
   id_empleado            Int?
   id_usuario             Int?
-  Bien                   Bien?     @relation(fields: [id_bien], references: [id_bien], onDelete: NoAction, onUpdate: NoAction, map: "historialresguardo_ibfk_1")
-  Empleado               Empleado? @relation(fields: [id_empleado], references: [id_empleado], onDelete: NoAction, onUpdate: NoAction, map: "historialresguardo_ibfk_2")
-  Usuario                Usuario?  @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "historialresguardo_ibfk_3")
 
   @@index([id_bien], map: "id_bien")
   @@index([id_empleado], map: "id_empleado")
   @@index([id_usuario], map: "id_usuario")
 }
 
-model Marca {
+model marca {
   id_marca     Int                 @id @default(autoincrement())
   nombre_marca String              @db.VarChar(255)
-  status_marca Marca_status_marca?
-  Producto     Producto[]
+  status_marca marca_status_marca?
 }
 
-model Producto {
+model producto {
   id_producto     Int     @id @default(autoincrement())
   nombre_producto String  @db.VarChar(255)
   modelo          String? @db.VarChar(100)
   ruta_imagen     String? @db.Text
   caracteristicas String? @db.Text
   id_marca        Int?
-  Bien            Bien[]
-  Marca           Marca?  @relation(fields: [id_marca], references: [id_marca], onDelete: NoAction, onUpdate: NoAction, map: "producto_ibfk_1")
 
   @@index([id_marca], map: "id_marca")
 }
 
-model RecursoOrigen {
+model recursoorigen {
   id_recurso_origen   Int                                @id @default(autoincrement())
-  descripcion_recurso RecursoOrigen_descripcion_recurso?
-  Bien                Bien[]
+  descripcion_recurso recursoorigen_descripcion_recurso?
 }
 
-model Resguardo {
-  id_resguardo    Int        @id @default(autoincrement())
-  fecha_resguardo DateTime   @db.Date
-  ubicacion       String?    @db.Text
+model resguardo {
+  id_resguardo    Int      @id @default(autoincrement())
+  fecha_resguardo DateTime @db.Date
+  ubicacion       String?  @db.Text
   id_bien         Int?
   id_empleado     Int?
   id_direccion    Int?
   id_usuario      Int?
-  Bien            Bien?      @relation(fields: [id_bien], references: [id_bien], onDelete: NoAction, onUpdate: NoAction, map: "resguardo_ibfk_1")
-  Empleado        Empleado?  @relation(fields: [id_empleado], references: [id_empleado], onDelete: NoAction, onUpdate: NoAction, map: "resguardo_ibfk_2")
-  Direccion       Direccion? @relation(fields: [id_direccion], references: [id_direccion], onDelete: NoAction, onUpdate: NoAction, map: "resguardo_ibfk_3")
-  Usuario         Usuario?   @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "resguardo_ibfk_4")
 
   @@index([id_bien], map: "id_bien")
   @@index([id_direccion], map: "id_direccion")
@@ -175,115 +142,104 @@ model Resguardo {
   @@index([id_usuario], map: "id_usuario")
 }
 
-model Rol {
-  id_rol          Int       @id @default(autoincrement())
-  nombre_rol      String    @db.VarChar(50)
-  descripcion_rol String?   @db.Text
-  Usuario         Usuario[]
+model rol {
+  id_rol          Int     @id @default(autoincrement())
+  nombre_rol      String  @db.VarChar(50)
+  descripcion_rol String? @db.Text
 }
 
-model StatusBien {
+model statusbien {
   id_status_bien     Int                            @id @default(autoincrement())
-  descripcion_status StatusBien_descripcion_status?
-  Bien               Bien[]
+  descripcion_status statusbien_descripcion_status?
 }
 
-model SubcuentaArmonizada {
-  id_subcuenta            Int                                   @id @default(autoincrement())
-  nombre_subcuenta        String                                @db.VarChar(255)
-  status_subcuenta        SubcuentaArmonizada_status_subcuenta?
-  borrador_subcuenta      Boolean?
-  Bien                    Bien[]
-  CodigoPartidaEspecifica CodigoPartidaEspecifica[]
+model subcuentaarmonizada {
+  id_subcuenta       Int                                   @id @default(autoincrement())
+  nombre_subcuenta   String                                @db.VarChar(255)
+  status_subcuenta   subcuentaarmonizada_status_subcuenta?
+  borrador_subcuenta Boolean?
 }
 
-model TipoAlta {
+model tipoalta {
   id_tipo_alta     Int                        @id @default(autoincrement())
-  descripcion_alta TipoAlta_descripcion_alta?
-  Bien             Bien[]
+  descripcion_alta tipoalta_descripcion_alta?
 }
 
-model TipoPosesion {
+model tipoposesion {
   id_tipo_posesion     Int                           @id @default(autoincrement())
   descripcion_posesion String                        @db.VarChar(255)
   clave_posesion       String?                       @db.VarChar(50)
-  status_posesion      TipoPosesion_status_posesion?
-  Bien                 Bien[]
+  status_posesion      tipoposesion_status_posesion?
 }
 
-model Usuario {
-  id_usuario         Int                  @id @default(autoincrement())
-  usuario            String               @db.VarChar(50)
-  contrasena         String               @db.VarChar(255)
-  id_empleado        Int?
-  id_rol             Int?
-  BajaBien           BajaBien[]
-  HistorialResguardo HistorialResguardo[]
-  Resguardo          Resguardo[]
-  Empleado           Empleado?            @relation(fields: [id_empleado], references: [id_empleado], onDelete: NoAction, onUpdate: NoAction, map: "usuario_ibfk_1")
-  Rol                Rol?                 @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuario_ibfk_2")
+model usuario {
+  id_usuario  Int    @id @default(autoincrement())
+  usuario     String @db.VarChar(50)
+  contrasena  String @db.VarChar(255)
+  id_empleado Int?
+  id_rol      Int?
 
   @@index([id_empleado], map: "id_empleado")
   @@index([id_rol], map: "id_rol")
 }
 
-enum RecursoOrigen_descripcion_recurso {
+enum recursoorigen_descripcion_recurso {
   Estatal
   FASP
 }
 
-enum StatusBien_descripcion_status {
+enum statusbien_descripcion_status {
   Asignado
   Extraviado
   Dado_de_baja @map("Dado de baja")
   Reasignado
 }
 
-enum TipoAlta_descripcion_alta {
+enum tipoalta_descripcion_alta {
   Compra
   Asignacion
   Donacion
   Comodato
 }
 
-enum SubcuentaArmonizada_status_subcuenta {
+enum subcuentaarmonizada_status_subcuenta {
   Activo
   Inactivo
 }
 
-enum Marca_status_marca {
+enum marca_status_marca {
   Activo
   Inactivo
 }
 
-enum TipoPosesion_status_posesion {
+enum tipoposesion_status_posesion {
   Activo
   Inactivo
 }
 
-enum Bien_estado_bien {
+enum bien_estado_bien {
   Asignado
   Extraviado
   Reasignado
   Dado_de_baja @map("Dado de baja")
 }
 
-enum CodigoPartidaEspecifica_status_partida {
+enum codigopartidaespecifica_status_partida {
   Activo
   Inactivo
 }
 
-enum Empleado_status_empleado {
+enum empleado_status_empleado {
   Activo
   Inactivo
 }
 
-enum Bien_propuesto_baja {
+enum bien_propuesto_baja {
   S_ @map("Sí")
   No
 }
 
-enum Bien_reparacion_baja {
+enum bien_reparacion_baja {
   Reparacion
   Baja
 }

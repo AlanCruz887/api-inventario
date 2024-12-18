@@ -60,6 +60,7 @@ export const createSubcuentaController = async (req, res) => {
             data: newSubcuenta,
         });
     } catch (error) {
+        console.log(error)
         return res.status(CODES_HTTP.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Hubo un error al crear la subcuenta.",

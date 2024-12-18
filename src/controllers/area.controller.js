@@ -97,6 +97,7 @@ export const deleteAreaController = async (req, res) => {
             message: "Área eliminada con éxito.",
         });
     } catch (error) {
+        console.log(error)
         res.status(CODES_HTTP.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Error al eliminar el área.",

@@ -17,6 +17,7 @@ export const getAllBienesController = async (req, res) => {
             data: bienes,
         });
     } catch (error) {
+        console.log(error)
         res.status(CODES_HTTP.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Error al obtener los bienes.",
